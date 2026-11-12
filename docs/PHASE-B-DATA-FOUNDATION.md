@@ -53,3 +53,20 @@
 4. Complete typed adapters for the remaining canonical worksheet families.
 5. Add snapshot history/restore/export and integrity trace UI.
 6. Complete responsive, accessibility, offline, and PWA validation before merging.
+
+
+## Independent workbook structure cross-check
+
+A separate read-only inspection of the authoritative workbook with openpyxl confirmed these expected data contracts and non-empty ID-bearing record counts. This is a workbook-structure check, not a successful execution of the browser parser:
+
+| Register | Header row | ID-bearing records |
+|---|---:|---:|
+| Latest current signals | 9 | 21 |
+| Latest topic links | 4 | 15 |
+| Canonical YouTube register | 3 | 73 |
+| Sources, across 3 header blocks | 3, 91, 107 | 273 |
+| Claims, across 8 header blocks | 3, 12, 20, 28, 37, 45, 52, 64 | 156 |
+| Entities | 3 | 147 |
+| Relationships | 3 | 126 |
+
+The repeated source and claim header variants are why a single-header-row adapter would have silently omitted substantial portions of the registers. These counts are structural expectations for the current workbook revision; they still need to be reconciled against an actual browser-parser run.
