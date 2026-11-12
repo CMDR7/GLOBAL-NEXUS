@@ -46,7 +46,7 @@ A responsive **Tactical Intelligence HUD** with a modern dark graphite palette, 
 
 ## Development status
 
-**Repository foundation.** Existing standalone HTML consoles are migration references. Their behavior will be inventoried and migrated into tested modules; they will not be concatenated or ported wholesale.
+**Phase B implementation in progress.** A draft pull request contains the initial Lit application shell, browser-local XLSX parser, schema adapters, and append-only IndexedDB snapshot store. Build and browser regression gates remain open. Existing standalone HTML consoles are migration references; they will not be concatenated or ported wholesale.
 
 ## Data and privacy
 
