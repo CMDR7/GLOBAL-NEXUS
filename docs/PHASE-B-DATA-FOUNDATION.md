@@ -31,7 +31,7 @@
 1. The parser is a minimal ZIP reader. ZIP64, multi-disk ZIP, unsupported compression methods, and encrypted workbooks are not supported. These must fail visibly.
 2. Date serials are retained as source values; display-format-aware date conversion is not yet implemented.
 3. The adapter currently normalizes the principal current signal, topic-link, YouTube, source, claim, entity, and relationship registers. Timelines, geography, trends, opportunities, report archive, methodology, and version history are still available as raw worksheets but do not yet have dedicated typed models.
-4. Repeated header blocks are preserved in raw rows and header inventory. Dedicated multi-block normalization and block-level integrity diagnostics remain outstanding.
+4. Known repeated header blocks in the source and claim registers are now recognized and normalized across their observed variants. Repeated blocks in content opportunities, report archive, scorecard, and other worksheet families remain raw-only; block-level integrity diagnostics are still outstanding.
 5. IndexedDB snapshot listing, selection, export, and restore UI are not yet implemented.
 6. Evidence graph resolution and unresolved-reference diagnostics remain outstanding.
 7. YouTube player lifecycle and verified embed-eligibility enforcement remain outstanding.
