@@ -12,7 +12,7 @@
 - Added schema-aware header discovery for the current signal sheet, topic-link sheets, and canonical YouTube register. This removes the previous fixed topic-link header offset.
 - Added normalized models for current signals, topic links, YouTube register records, sources, claims, entities, and relationships. Other worksheet families remain available as raw worksheets and inventory entries.
 - Added exact token splitting for semicolon/comma/newline-separated references. Signal source IDs are no longer discarded.
-- Added separate link classifications: direct video, discovery, external video, and other.
+- Added separate link classifications: direct video, discovery, external video, and other. The canonical YouTube register's own Link Type field is authoritative for register records; URL-pattern classification is a fallback.
 - Added IndexedDB append-only snapshot writes with a UUID, import timestamp, source filename, parser/schema versions, and SHA-256 when Web Crypto is available.
 - Added file-picker and drag/drop ingestion UI, progress display, and explicit failure messaging.
 - Added an adaptive mobile bottom navigation rail.
@@ -44,6 +44,7 @@
 - The three core data modules (model, XLSX parser, workbook adapter) passed a strict TypeScript 5.8.3 check in the local validation environment. The snapshot-store module also compiled with the same strict settings.
 - The browser XLSX parser was executed in headless Chromium using the actual authoritative workbook selected through a file input. It successfully parsed all 28 worksheets, including 123 formula cells and 463 external hyperlink relationships.
 - The browser parser + adapter run produced 21 signals, 15 topic links, 73 YouTube records, 273 sources, 156 claims, 147 entities, and 126 relationships, with no adapter warnings. All counts matched the independent workbook structure cross-check.
+- YouTube link-type classification reconciled exactly to the workbook's own Link Type column: 1 direct video, 68 search/discovery links, and 4 external video records. The initial URL-only classification was corrected to honor this canonical field.
 - The full Lit application build/typecheck remains NOT TESTED because npm dependency installation timed out and network package access was unavailable.
 - IndexedDB append/reload persistence remains NOT TESTED. The available headless test document used an opaque origin where IndexedDB access is denied. The UUID fallback was added for contexts without `crypto.randomUUID`; persistence still requires a supported browser origin, normally HTTPS or localhost.
 - PWA, responsive, accessibility, performance, and physical-device validation remain NOT TESTED.
