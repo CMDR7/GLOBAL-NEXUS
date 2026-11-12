@@ -2,7 +2,7 @@ export type CellValue = string | number | boolean | null;
 export type LinkKind = 'direct-video' | 'discovery' | 'external-video' | 'other';
 export interface RawWorksheet { name:string; rows:CellValue[][]; physicalRows:number[]; cellLinks:Record<number,Record<number,string>>; formulas:Record<string,{formula:string;cachedValue:CellValue}>; hidden?:boolean; }
 export interface SourceRecord { id:string; publisher:string; title:string; signalRefs:string[]; published:string; url:string; sourceType:string; caveat:string; row:number; }
-export interface ClaimRecord { id:string; claim:string; evidence:string; sourceIds:string[]; classification:string; confidence:string; signalIds:string[]; caveat:string; row:number; }
+export interface ClaimRecord { id:string; claim:string; evidence:string; sourceIds:string[]; classification:string; confidence:string; signalIds:string[]; evidenceRefs:string[]; caveat:string; row:number; }
 export interface EntityRecord { id:string; name:string; type:string; signalIds:string[]; fields:Record<string,CellValue>; row:number; }
 export interface RelationshipRecord { id:string; from:string; to:string; relationship:string; observedLinkage:string; sourceIds:string[]; snapshot:string; row:number; }
 export interface YouTubeRecord { recordId:string; legacyRecordId:string; videoId:string; title:string; channel:string; publishedAt:string; videoUrl:string; linkType:LinkKind; verificationStatus:string; embedEligibility:string; relatedSignalIds:string[]; snapshotTimestamp:string; views:CellValue; likes:CellValue; comments:CellValue; metricCaptureTime:string; attribution:string; notes:string; row:number; }
