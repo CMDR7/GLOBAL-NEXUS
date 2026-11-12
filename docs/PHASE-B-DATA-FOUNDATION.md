@@ -41,14 +41,18 @@
 ## Verification performed
 
 - Core data modules were checked with TypeScript 5.8.3 using strict mode and DOM libraries; that isolated data-layer type check completed without errors in the local working environment.
-- A full project type check could not be completed because project dependencies were not installed. The package installation attempt timed out.
-- Browser execution against the authoritative workbook was attempted but did not complete in the available headless Chromium session.
-- Therefore this branch is an implementation checkpoint, not a validated release.
+- The three core data modules (model, XLSX parser, workbook adapter) passed a strict TypeScript 5.8.3 check in the local validation environment. The snapshot-store module also compiled with the same strict settings.
+- The browser XLSX parser was executed in headless Chromium using the actual authoritative workbook selected through a file input. It successfully parsed all 28 worksheets, including 123 formula cells and 463 external hyperlink relationships.
+- The browser parser + adapter run produced 21 signals, 15 topic links, 73 YouTube records, 273 sources, 156 claims, 147 entities, and 126 relationships, with no adapter warnings. All counts matched the independent workbook structure cross-check.
+- The full Lit application build/typecheck remains NOT TESTED because npm dependency installation timed out and network package access was unavailable.
+- IndexedDB append/reload persistence remains NOT TESTED. The available headless test document used an opaque origin where IndexedDB access is denied. The UUID fallback was added for contexts without `crypto.randomUUID`; persistence still requires a supported browser origin, normally HTTPS or localhost.
+- PWA, responsive, accessibility, performance, and physical-device validation remain NOT TESTED.
+- Therefore this branch is a data-foundation validation checkpoint, not a validated application release.
 
 ## Next engineering gates
 
-1. Install dependencies and complete full-project type checking/build.
-2. Execute the parser against the authoritative v2.1 workbook in a real browser and reconcile sheet/record counts with the read-only audit.
+1. Restore package-registry access, install dependencies, and complete full-project type checking/build.
+2. Run the complete Lit app on a supported HTTPS/localhost origin and validate IndexedDB append, reload, and snapshot listing.
 3. Add fixture tests for repeated headers, sparse rows, hyperlink relationships, formula cached values, unknown sheets, and invalid ZIP files.
 4. Complete typed adapters for the remaining canonical worksheet families.
 5. Add snapshot history/restore/export and integrity trace UI.
