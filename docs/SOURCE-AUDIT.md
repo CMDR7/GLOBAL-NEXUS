@@ -132,16 +132,39 @@ The v1.4 source includes responsive navigation, a mobile drawer, a bottom rail, 
 - The YouTube API is online-only; all core workbook views must continue to function without it.
 - Existing code presence is not proof of end-to-end correctness. Runtime tests remain outstanding.
 
-## 8. Missing inputs / verification blockers
+## 8. Inputs retrieved and inspected (correction)
 
-The following files were not located in the available conversation or Library search results during this audit:
+Both intended inputs were already present in the user's Library. The earlier audit incorrectly reported them missing because the initial semantic search did not surface them. That was a retrieval error, not a missing-user-input issue.
 
-- `NEXUS-v1.5-Lit-TypeScript-source.zip` (the intended Lit/TypeScript scaffold)
-- `Global_Signals_Intelligence_System_v2_1_CUMULATIVE_2026-11-09.xlsx` (the authoritative v2.1 workbook named by the NEXUS implementation specification)
+| Input | Retrieved Library file | Size | SHA-256 |
+|---|---|---:|---|
+| Lit/TypeScript scaffold | `NEXUS-v1.5-Lit-TypeScript-source.zip` | 12,471 bytes | `bc8967fdbc7dc78740ff514b63ac1155e8689aa5ba1429b52ccc353bb340770f` |
+| Authoritative workbook | `Global_Signals_Intelligence_System_v2_1_CUMULATIVE_2026-11-09(1).xlsx` | 495,934 bytes | `dfb39ba4366f824b27985756a44d8804d0133331cb0d5fc5812658523c3e443f` |
 
-The missing scaffold is not assumed or recreated. The workbook is not substituted with an older snapshot. Upload these inputs if they are still intended as the authoritative migration references.
+The workbook contains 28 worksheets, including the 9 November current snapshot, dated topic-link register, trend register, and canonical YouTube video register. Detailed worksheet and adapter findings are documented in `WORKBOOK-SCHEMA-AUDIT.md`.
 
-## 9. Audit conclusion
+### Scaffold-specific findings
+
+- The ZIP contains 15 project files: Vite configuration, package/TypeScript configuration, Lit application shell, five destination components, navigation, design tokens, data model, and workbook adapter.
+- The scaffold is a genuine source scaffold, not a completed application.
+- Its README explicitly states that the v1.4 browser-local XLSX parser has not yet been ported and live workbook ingestion is not operational.
+- The file input emits a `nexus-workbook-request` event, but no parser integration or event handler is included in the scaffold.
+- Package dependencies are Lit 3.3.1, TypeScript 5.8.3, Vite 6.4.1 and vite-plugin-singlefile 2.3.0 (version ranges as declared in package.json).
+- No lockfile is included in the ZIP.
+
+### Workbook-specific findings
+
+- The file name identifies schema v2.1, while the dashboard/current snapshot text still describes the cumulative research workbook as v2.0. The canonical YouTube register explicitly identifies itself as v2.1. Preserve this source metadata discrepancy; do not silently rename the research methodology or workbook version.
+- The latest dated current snapshot sheet is `24_CURRENT_2026-11-09_EVE`.
+- The latest dated topic-link sheet is `25_TOPIC_LINKS_2026-11-09`.
+- The canonical YouTube register is `27_YOUTUBE_VIDEO_REGISTER`.
+- The scaffold adapter's current-snapshot header detection can locate the Signal ID header row, but its field aliases do not fully match the 9 November snapshot schema.
+- The scaffold adapter's topic-link parser assumes the header is at row index 1 or 0 and begins data at row index 2. The actual latest topic-link sheet has its header on Excel row 4 and data from row 5. As written, it will misread or fail to normalize that sheet.
+- The scaffold model does not yet normalize source, claim, entity, relationship, timeline, geography, archive, or canonical YouTube records into typed collections. Raw sheet retention is declared, but the complete ingestion pipeline is not implemented.
+
+The original files were retrieved and inspected. No replacement or fabricated input was used.
+
+## 10. Audit conclusion
 
 The v1.4 console is the primary functional reference. The v1.5 candidate contributes the five-destination information architecture, improved source/claim/evidence trace behavior, dated topic-link selection, and YouTube player lifecycle. Global Nexus will implement these behaviors through typed domain services and Lit components, while adding the newly approved IndexedDB local archive and adaptive Tactical Intelligence HUD.
 
