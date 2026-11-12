@@ -14,6 +14,7 @@
 - Added exact token splitting for semicolon/comma/newline-separated references. Signal source IDs are no longer discarded.
 - Added separate link classifications: direct video, discovery, external video, and other. The canonical YouTube register's own Link Type field is authoritative for register records; URL-pattern classification is a fallback.
 - Added IndexedDB append-only snapshot writes with a UUID, import timestamp, source filename, parser/schema versions, and SHA-256 when Web Crypto is available.
+- Added local snapshot listing and retrieval APIs, automatic archive discovery on application startup, and a snapshot selector for reloading a previously imported immutable snapshot.
 - Added file-picker and drag/drop ingestion UI, progress display, and explicit failure messaging.
 - Added an adaptive mobile bottom navigation rail.
 
@@ -32,7 +33,7 @@
 2. Date serials are retained as source values; display-format-aware date conversion is not yet implemented.
 3. The adapter currently normalizes the principal current signal, topic-link, YouTube, source, claim, entity, and relationship registers. Timelines, geography, trends, opportunities, report archive, methodology, and version history are still available as raw worksheets but do not yet have dedicated typed models.
 4. Known repeated header blocks in the source and claim registers are now recognized and normalized across their observed variants. Repeated blocks in content opportunities, report archive, scorecard, and other worksheet families remain raw-only; block-level integrity diagnostics are still outstanding.
-5. IndexedDB snapshot listing, selection, export, and restore UI are not yet implemented.
+5. IndexedDB snapshot listing and selection/reload UI are now implemented. Export/backup and restore-from-backup remain outstanding.
 6. Evidence graph resolution and unresolved-reference diagnostics remain outstanding.
 7. YouTube player lifecycle and verified embed-eligibility enforcement remain outstanding.
 8. PWA service worker, offline install/update flow, and shell-only caching remain outstanding.
@@ -53,7 +54,7 @@
 ## Next engineering gates
 
 1. Restore package-registry access, install dependencies, and complete full-project type checking/build.
-2. Run the complete Lit app on a supported HTTPS/localhost origin and validate IndexedDB append, reload, and snapshot listing.
+2. Run the complete Lit app on a supported HTTPS/localhost origin and validate IndexedDB append, reload, and snapshot listing. The UI path now exists, but persistence execution remains unverified.
 3. Add fixture tests for repeated headers, sparse rows, hyperlink relationships, formula cached values, unknown sheets, and invalid ZIP files.
 4. Complete typed adapters for the remaining canonical worksheet families.
 5. Add snapshot history/restore/export and integrity trace UI.
